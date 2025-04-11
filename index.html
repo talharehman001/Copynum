@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>নাম্বার কপি টুল</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+    .number-box { display: flex; align-items: center; margin: 5px 0; }
+    .number-box span { flex: 1; padding: 5px; background: #f0f0f0; border-radius: 5px; }
+    .number-box button { margin-left: 10px; }
+    .copied { text-decoration: line-through; color: gray; }
+  </style>
+</head>
+<body>
+
+  <h2>নাম্বার ইনপুট করো:</h2>
+  <textarea id="inputBox" placeholder="নাম্বার লিখো, যেমন: 01712345678, 01898765432..."></textarea>
+  <button onclick="processNumbers()">দেখাও</button>
+
+  <h2>নাম্বার তালিকা:</h2>
+  <div id="outputBox"></div>
+
+  <script>
+    let remainingNumbers = [];
+
+    function processNumbers() {
+      const input = document.getElementById("inputBox").value;
+      remainingNumbers = input.split(/[\n, ]+/).filter(num => num.trim() !== '');
+      renderNumbers();
+    }
+
+    function renderNumbers() {
+      const output = document.getElementById("outputBox");
+      output.innerHTML = "";
+
+      remainingNumbers.forEach((number, index) => {
+        const div = document.createElement("div");
+        div.className = "number-box";
+
+        const span = document.createElement("span");
+        span.innerText = number;
+
+        const btn = document.createElement("button");
+        btn.innerText = "Copy";
+        btn.onclick = () => copyNumber(index, span, div);
+
+        div.appendChild(span);
+        div.appendChild(btn);
+        output.appendChild(div);
+      });
+    }
+
+    function copyNumber(index, span, container) {
+      const number = remainingNumbers[index];
+      navigator.clipboard.writeText(number).then(() => {
+        // Remove from list and re-render
+        remainingNumbers.splice(index, 1);
+        container.remove();
+      });
+    }
+  </script>
+
+</body>
+</html>
