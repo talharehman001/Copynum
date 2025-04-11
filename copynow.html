@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>নাম্বার কপি টুল</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+    #currentNumber {
+      font-size: 20px;
+      margin: 20px 0;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      text-align: center;
+    }
+    button {
+  padding: 20px 40px; /* অনেক বড় প্যাডিং */
+  font-size: 24px;     /* বড় ফন্ট সাইজ */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+    button:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>নাম্বার ইনপুট করো (কমা, স্পেস বা লাইনে লাইনে):</h2>
+  <textarea id="inputBox" placeholder="যেমন: 01711111111, 01822222222"></textarea>
+  <button onclick="start()">শুরু করো</button>
+
+  <div id="currentNumber" style="display:none;"></div>
+  <button id="copyButton" style="display:none;" onclick="copyNumber()">Copy</button>
+
+  <footer>
+    Made By TalHa RaHman
+  </footer>
+
+  <script>
+    let numbers = [];
+    let currentIndex = 0;
+
+    function start() {
+      const input = document.getElementById("inputBox").value;
+      numbers = input.split(/[\n, ]+/).filter(num => num.trim() !== '');
+      currentIndex = 0;
+      if (numbers.length > 0) {
+        document.getElementById("inputBox").style.display = "none";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("currentNumber").style.display = "block";
+        document.getElementById("copyButton").style.display = "inline-block";
+        showNextNumber();
+      }
+    }
+
+    function showNextNumber() {
+      if (currentIndex < numbers.length) {
+        document.getElementById("currentNumber").innerText = numbers[currentIndex];
+      } else {
+        document.getElementById("currentNumber").innerText = "সব নাম্বার কপি শেষ ✅";
+        document.getElementById("copyButton").disabled = true;
+      }
+    }
+
+    function copyNumber() {
+      if (currentIndex < numbers.length) {
+        const numberToCopy = numbers[currentIndex];
+        navigator.clipboard.writeText(numberToCopy).then(() => {
+          currentIndex++;
+          showNextNumber();
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
