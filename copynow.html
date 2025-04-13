@@ -15,15 +15,14 @@
       text-align: center;
     }
     button {
-  padding: 20px 40px; /* অনেক বড় প্যাডিং */
-  font-size: 24px;     /* বড় ফন্ট সাইজ */
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
     button:disabled {
       background-color: #999;
       cursor: not-allowed;
@@ -33,6 +32,13 @@
       text-align: center;
       font-size: 14px;
       color: #666;
+    }
+    footer a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -46,7 +52,7 @@
   <button id="copyButton" style="display:none;" onclick="copyNumber()">Copy</button>
 
   <footer>
-    Made By TalHa RaHman
+    Made By TalHa RaHman | <a href="https://t.me/talha_rahman" target="_blank">My Telegram</a>
   </footer>
 
   <script>
